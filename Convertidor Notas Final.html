@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Notas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+        }
+        input {
+            font-size: 16px;
+            padding: 10px;
+            margin: 5px;
+            width: 50px;
+            border-radius: 5px; /* Redondear bordes */
+            border: 1px solid #ccc; /* Añadir borde */
+        }
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 5px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 5px; /* Redondear bordes */
+            border: none; /* Quitar borde */
+            background-color: #007bff; /* Color de fondo */
+            color: #fff; /* Color de texto */
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .note-inputs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .note-group {
+            margin: 10px;
+        }
+        .credit {
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Convertidor de Notas <span class="credit">Hecho por Adrián Garrido</span></h1>
+    <p>Hola, introduce por favor las notas de 3º y 4º de la ESO en formato 1-5</p>
+    <input type="text" id="nombre" placeholder="Nombre">
+    <div class="note-inputs">
+        <!-- Primer conjunto de 12 notas -->
+        <div class="note-group">
+            <h3>Notas 3º ESO</h3>
+            <input type="number" id="nota1" min="1" max="5" step="1">
+            <input type="number" id="nota2" min="1" max="5" step="1">
+            <input type="number" id="nota3" min="1" max="5" step="1">
+            <input type="number" id="nota4" min="1" max="5" step="1">
+            <input type="number" id="nota5" min="1" max="5" step="1">
+            <input type="number" id="nota6" min="1" max="5" step="1">
+            <input type="number" id="nota7" min="1" max="5" step="1">
+            <input type="number" id="nota8" min="1" max="5" step="1">
+            <input type="number" id="nota9" min="1" max="5" step="1">
+            <input type="number" id="nota10" min="1" max="5" step="1">
+            <input type="number" id="nota11" min="1" max="5" step="1">
+            <input type="number" id="nota12" min="1" max="5" step="1">
+        </div>
+        <!-- Segundo conjunto de 11 notas -->
+        <div class="note-group">
+            <h3>Notas 4º ESO</h3>
+            <input type="number" id="nota13" min="1" max="5" step="1">
+            <input type="number" id="nota14" min="1" max="5" step="1">
+            <input type="number" id="nota15" min="1" max="5" step="1">
+            <input type="number" id="nota16" min="1" max="5" step="1">
+            <input type="number" id="nota17" min="1" max="5" step="1">
+            <input type="number" id="nota18" min="1" max="5" step="1">
+            <input type="number" id="nota19" min="1" max="5" step="1">
+            <input type="number" id="nota20" min="1" max="5" step="1">
+            <input type="number" id="nota21" min="1" max="5" step="1">
+            <input type="number" id="nota22" min="1" max="5" step="1">
+            <input type="number" id="nota23" min="1" max="5" step="1">
+        </div>
+    </div>
+    <button onclick="calcularMedias()">Calcular Medias</button>
+    <button onclick="guardarMedias()">Guardar</button>
+    <div class="result" id="resultado"></div>
+    
+    <script>
+        let mediasCalculadas = "";
+
+        function calcularMedias() {
+            let sumaConvertidaESO1 = 0;
+            let sumaConvertidaESO2 = 0;
+            let sumaConvertidaFP = 0;
+            let sumaConvertidaBachillerato1 = 0;
+            let sumaConvertidaBachillerato2 = 0;
+            const cantidadNotas1 = 12;
+            const cantidadNotas2 = 11;
+
+            // Convertir y sumar las primeras 12 notas (3º ESO)
+            for (let i = 1; i <= cantidadNotas1; i++) {
+                let nota = parseInt(document.getElementById('nota' + i).value);
+                let notaConvertidaFP;
+                let notaConvertidaBachillerato;
+                switch(nota) {
+                    case 1:
+                        notaConvertidaFP = 9;
+                        notaConvertidaBachillerato = 10;
+                        break;
+                    case 2:
+                        notaConvertidaFP = 7.5;
+                        notaConvertidaBachillerato = 8;
+                        break;
+                    case 3:
+                        notaConvertidaFP = 6;
+                        notaConvertidaBachillerato = 6.5;
+                        break;
+                    case 4:
+                        notaConvertidaFP = 5;
+                        notaConvertidaBachillerato = 5.5;
+                        break;
+                    case 5:
+                        notaConvertidaFP = 3;
+                        notaConvertidaBachillerato = 4;
+                        break;
+                    default:
+                        notaConvertidaFP = 0; // Asignar 0 si la nota es inválida
+                        notaConvertidaBachillerato = 0; // Asignar 0 si la nota es inválida
+                }
+                sumaConvertidaESO1 += notaConvertidaFP;
+                sumaConvertidaFP += notaConvertidaFP;
+                sumaConvertidaBachillerato1 += notaConvertidaBachillerato;
+            }
+
+            // Convertir y sumar las siguientes 11 notas (4º ESO)
+            for (let i = 13; i <= 12 + cantidadNotas2; i++) {
+                let nota = parseInt(document.getElementById('nota' + i).value);
+                let notaConvertidaFP;
+                let notaConvertidaBachillerato;
+                switch(nota) {
+                    case 1:
+                        notaConvertidaFP = 9;
+                        notaConvertidaBachillerato = 10;
+                        break;
+                    case 2:
+                        notaConvertidaFP = 7.5;
+                        notaConvertidaBachillerato = 8;
+                        break;
+                    case 3:
+                        notaConvertidaFP = 6;
+                        notaConvertidaBachillerato = 6.5;
+                        break;
+                    case 4:
+                        notaConvertidaFP = 5;
+                        notaConvertidaBachillerato = 5.5;
+                        break;
+                    case 5:
+                        notaConvertidaFP = 3;
+                        notaConvertidaBachillerato = 4;
+                        break;
+                    default:
+                        notaConvertidaFP = 0; // Asignar 0 si la nota es inválida
+                        notaConvertidaBachillerato = 0; // Asignar 0 si la nota es inválida
+                }
+                sumaConvertidaESO2 += notaConvertidaFP;
+                sumaConvertidaFP += notaConvertidaFP;
+                sumaConvertidaBachillerato2 += notaConvertidaBachillerato;
+            }
+
+            // Calcular medias para 3º FP y Bachillerato
+            let mediaFP3 = sumaConvertidaESO1 / cantidadNotas1;
+            let mediaBachillerato3 = sumaConvertidaBachillerato1 / cantidadNotas1;
+
+            // Calcular medias para 4º FP y Bachillerato
+            let mediaFP4 = sumaConvertidaESO2 / cantidadNotas2;
+            let mediaBachillerato4 = sumaConvertidaBachillerato2 / cantidadNotas2;
+
+            // Calcular medias generales de FP y Bachillerato
+            let mediaFP = (sumaConvertidaESO1 + sumaConvertidaESO2) / (cantidadNotas1 + cantidadNotas2);
+            let mediaBachillerato = (sumaConvertidaBachillerato1 + sumaConvertidaBachillerato2) / (cantidadNotas1 + cantidadNotas2);
+
+            mediasCalculadas = "Media de 3º FP: " + mediaFP3.toFixed(2) + 
+                "\nMedia de 3º Bachillerato: " + mediaBachillerato3.toFixed(2) + 
+                "\nMedia de 4º FP: " + mediaFP4.toFixed(2) +
+                "\nMedia de 4º Bachillerato: " + mediaBachillerato4.toFixed(2) +
+                "\nMedia General FP: " + mediaFP.toFixed(2) +
+                "\nMedia General Bachillerato: " + mediaBachillerato.toFixed(2);
+
+            document.getElementById('resultado').innerText = mediasCalculadas;
+        }
+
+        function guardarMedias() {
+            if (mediasCalculadas === "") {
+                alert("Primero calcula las medias.");
+                return;
+            }
+
+            let nombre = document.getElementById('nombre').value;
+            if (nombre.trim() === "") {
+                alert("Introduce tu nombre.");
+                return;
+            }
+
+            let contenido = `Nombre: ${nombre}\n${mediasCalculadas}`;
+            let blob = new Blob([contenido], { type: 'text/plain' });
+            let enlace = document.createElement('a');
+            enlace.href = URL.createObjectURL(blob);
+            enlace.download = `media_${nombre}.txt`;
+            enlace.click();
+        }
+    </script>
+</body>
+</html>
